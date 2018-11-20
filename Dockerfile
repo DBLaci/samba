@@ -22,8 +22,8 @@ RUN apk --no-cache --no-progress upgrade && \
     echo '   force create mode = 0664' >>$file && \
     echo '   directory mask = 0775' >>$file && \
     echo '   force directory mode = 0775' >>$file && \
-    echo '   force user = smbuser' >>$file && \
-    echo '   force group = users' >>$file && \
+    echo '#   force user = smbuser' >>$file && \
+    echo '#   force group = users' >>$file && \
     echo '   follow symlinks = yes' >>$file && \
     echo '   load printers = no' >>$file && \
     echo '   printing = bsd' >>$file && \
@@ -43,6 +43,8 @@ RUN apk --no-cache --no-progress upgrade && \
     echo '   client ipc min protocol = default' >>$file && \
     echo '   client min protocol = CORE' >>$file && \
     echo '   server min protocol = SMB2' >>$file && \
+    echo '   # Windows xp? https://blog.ceae.info/config-for-samba-to-allow-login-windows-xp/' >>$file && \
+    echo '   ntlm auth = yes' >>$file && \
     echo '' >>$file && \
     echo '   # Time Machine' >>$file && \
     echo '   durable handles = yes' >>$file && \
@@ -63,6 +65,6 @@ EXPOSE 137/udp 138/udp 139 445
 HEALTHCHECK --interval=60s --timeout=15s \
              CMD smbclient -L '\\localhost' -U '%' -m SMB3
 
-VOLUME ["/etc/samba"]
+#VOLUME ["/etc/samba"]
 
 ENTRYPOINT ["/sbin/tini", "--", "/usr/bin/samba.sh"]
