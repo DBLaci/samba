@@ -139,7 +139,7 @@ smb() { local file=/etc/samba/smb.conf
 user() { local name="$1" passwd="$2" id="${3:-""}" group="${4:-""}"
     [[ "$group" ]] && { grep -q "^$group:" /etc/group || addgroup "$group"; }
     grep -q "^$name:" /etc/passwd ||
-        adduser -D -H ${group:+-G $group} ${id:+-o -u $id} "$name"
+        useradd -M ${group:+-g $group} ${id:+-o -u $id} "$name"
     echo -e "$passwd\n$passwd" | smbpasswd -s -a "$name"
 }
 
