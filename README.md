@@ -118,3 +118,12 @@ Any of the commands can be run at creation with `docker run` or later with
 
 If you have any problems with or questions about this image, please contact me
 through a [GitHub issue](https://github.com/dperson/samba/issues).
+
+# Build container
+
+```
+docker build -t dblaci/samba:20210916 .
+docker login
+...
+docker push dblaci/samba:20210916
+```
