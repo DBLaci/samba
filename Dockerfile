@@ -59,6 +59,7 @@ RUN apk --no-cache --no-progress upgrade && \
     rm -rf /tmp/*
 
 COPY samba.sh /usr/bin/
+COPY samba_df.sh /usr/local/bin/
 
 EXPOSE 137/udp 138/udp 139 445
 

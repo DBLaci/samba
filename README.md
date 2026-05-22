@@ -112,6 +112,15 @@ Any of the commands can be run at creation with `docker run` or later with
                 -s "example1 private share;/example1;no;no;no;example1" \
                 -s "example2 private share;/example2;no;no;no;example2"
 
+#### Unlimited free space on multiple mount
+
+Perhaps You use multiple mounts as shares through symlinks. In this case the linked mount free space will not be used, instead the parent mount free space counts.
+
+A primitive solution is to force samba to tell there is always unlimited space:
+
+              -g "dfree command = /usr/local/bin/samba_df.sh"
+
+
 # User Feedback
 
 ## Issues
