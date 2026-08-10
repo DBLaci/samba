@@ -46,11 +46,13 @@ RUN apk --no-cache --no-progress upgrade && \
     echo '   # Windows xp? https://blog.ceae.info/config-for-samba-to-allow-login-windows-xp/' >>$file && \
     echo '   ntlm auth = yes' >>$file && \
     echo '' >>$file && \
-    echo '   # Time Machine' >>$file && \
-    echo '   durable handles = yes' >>$file && \
-    echo '   kernel oplocks = no' >>$file && \
-    echo '   kernel share modes = no' >>$file && \
-    echo '   posix locking = no' >>$file && \
+    echo '   # macOS / Time Machine' >>$file && \
+    echo '   # Nincs itt "durable handles = yes" es a hozza tartozo' >>$file && \
+    echo '   # "kernel oplocks = no", "kernel share modes = no",' >>$file && \
+    echo '   # "posix locking = no" harmas: azok Time Machine-hez kellenek,' >>$file && \
+    echo '   # viszont megszuntetik a zarolast az SMB es a lokalis (pl. mas' >>$file && \
+    echo '   # konteneres) hozzaferes kozott, ami egyideju iraskor adatserulest' >>$file && \
+    echo '   # okozhat. Ha kell, a compose -g opcioival adhato vissza mind a negy.' >>$file && \
     echo '   fruit:aapl = yes' >>$file && \
     echo '   fruit:advertise_fullsync = true' >>$file && \
     echo '   fruit:time machine = yes' >>$file && \
