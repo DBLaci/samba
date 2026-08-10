@@ -254,6 +254,9 @@ elif [[ $# -ge 1 ]]; then
 elif ps -ef | egrep -v grep | grep -q smbd; then
     echo "Service already running, please restart container to apply changes"
 else
-    [[ ${NMBD:-""} ]] && ionice -c 3 nmbd -D
-    exec ionice -c 3 smbd -F --no-process-group </dev/null
+    # Nincs "ionice -c 3" (idle IO osztaly): attol az smbd csak akkor kap
+    # lemezidot, ha semmi mas nem akar. Ha a gepen mas is hasznalja a
+    # lemezeket (pl. tovabbi konteneek), az SMB forgalom beszakad.
+    [[ ${NMBD:-""} ]] && nmbd -D
+    exec smbd -F --no-process-group </dev/null
 fi
